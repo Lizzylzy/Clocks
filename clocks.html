@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clock</title>
+</head>
+<style id="css">
+body {
+    background: #20B766;
+}
+#box {
+    width: 200px;
+    height: 200px;
+    border: solid 1px #FFF;
+    position: relative;
+    border-radius: 50%;
+    margin: 100px auto;
+}
+#list {
+    list-style: none;
+    position: relative;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#list li {
+    width: 1px;
+    height: 6px;
+    background: #FFF;
+    position: absolute;
+    left: 99px;
+    top: 0;
+    transform-origin:center 100px;
+    -moz-transform-origin:center 100px;
+    -webkit-transform-origin:center 100px;
+    -o-transform-origin:center 100px;
+}
+#list li:nth-child(5n+1) {
+    width: 2px;
+    height: 10px;
+}
+#icon,#hour,#min,#sec {
+    position: absolute;
+    background: #FFF;
+}
+#icon {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    left: 95px;
+    top: 95px;
+}
+#hour {
+    width: 4px;
+    height: 50px;
+    left: 98px;
+    top: 50px;
+    transform-origin: bottom;
+    -moz-transform-origin: bottom;
+    -webkit-transform-origin: bottom;
+    -o-transform-origin: bottom;
+}
+#min {
+    width: 2px;
+    height: 70px;
+    left: 99px;
+    top: 30px;
+    transform-origin: bottom;
+    -moz-transform-origin: bottom;
+    -webkit-transform-origin: bottom;
+    -o-transform-origin: bottom;
+}
+#sec {
+    width: 2px;
+    height: 90px;
+    left: 99px;
+    top: 10px;
+    transform-origin: bottom;
+    -moz-transform-origin: bottom;
+    -webkit-transform-origin: bottom;
+    -o-transform-origin: bottom;
+}
+</style>
+<script>
+    window.onload = function() {
+        let list = document.getElementById('list');
+        let hour = document.getElementById('hour');
+        let min = document.getElementById('min');
+        let sec = document.getElementById('sec');
+        let icon = document.getElementById('icon');
+        let css = document.getElementById('css');
+        let lis = '';
+        for (let i = 0; i < 60; i++) {
+            lis += '<li></li>';
+            css.innerHTML +="#list li:nth-of-type("+(i+1)+"){ transform:rotate( "+i*6+"deg );-moz-transform:rotate( "+i*6+"deg );-webkit-transform:rotate( "+i*6+"deg );-o-transform:rotate( "+i*6+"deg ); }";
+        }
+        list.innerHTML = lis;
+
+        toTime();
+        setInterval(toTime, 1000);
+        function toTime() {
+            let date = new Date();
+            let s = date.getSeconds();
+            let m = date.getMinutes() + s/60
+            let h = date.getHours() + m/60;
+            hour.style.WebkitTransform=" rotate( "+ h*30 +"deg ) ";
+            min.style.WebkitTransform=" rotate( "+ m*6 +"deg ) ";
+            sec.style.WebkitTransform=" rotate( "+ s*6 +"deg ) ";
+        }
+
+    }
+</script>
+<body>
+    <div id="box">
+        <div id="time">
+            <ul id="list"></ul>
+        </div>
+        <div id="hour"></div>
+        <div id="min"></div>
+        <div id="sec"></div>
+        <div id="icon"></div>
+    </div>
+</body>
+</html>
